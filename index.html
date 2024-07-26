@@ -26,20 +26,24 @@
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
 
-        function saveData() {
-            var userInput = document.getElementById('userInput').value;
-            db.collection("userInputs").add({
-                input: userInput,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            })
-            .then(() => {
-                alert("Data saved successfully!");
-                document.getElementById('userInput').value = '';
-            })
-            .catch((error) => {
-                console.error("Error saving data: ", error);
-            });
-        }
+
+            function saveData() {
+        var userInput = document.getElementById('userInput').value;
+        console.log("User input: ", userInput);  // Add this line
+
+        db.collection("userInputs").add({
+            input: userInput,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+            console.log("Data saved successfully!");  // Add this line
+            alert("Data saved successfully!");
+            document.getElementById('userInput').value = '';
+        })
+        .catch((error) => {
+            console.error("Error saving data: ", error);  // Add this line
+        });
+    }
     </script>
 </body>
 </html>
