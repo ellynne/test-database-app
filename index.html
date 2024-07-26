@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Database App</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <h1>Test Database App</h1>
+    <input type="text" id="userInput" placeholder="Enter something...">
+    <button onclick="saveData()">Save</button>
+
+    <script>
+        // Your web app's Firebase configuration (replace with your own)
+        var firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+
+        function saveData() {
+            var userInput = document.getElementById('userInput').value;
+            db.collection("userInputs").add({
+                input: userInput,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                alert("Data saved successfully!");
+                document.getElementById('userInput').value = '';
+            })
+            .catch((error) => {
+                console.error("Error saving data: ", error);
+            });
+        }
+    </script>
+</body>
+</html>
